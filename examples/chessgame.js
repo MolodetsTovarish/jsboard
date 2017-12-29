@@ -8,7 +8,7 @@ var bishop = jsboard.piece({text:"WB", textIndent:"-9999px", background:"url('im
 var rook   = jsboard.piece({text:"WR", textIndent:"-9999px", background:"url('images/chess/rook.png') no-repeat", width:"50px", height:"50px", margin:"0 auto" });
 var queen  = jsboard.piece({text:"WQ", textIndent:"-9999px", background:"url('images/chess/queen.png') no-repeat", width:"50px", height:"50px", margin:"0 auto" });
 var king   = jsboard.piece({text:"WG", textIndent:"-9999px", background:"url('images/chess/king.png') no-repeat", width:"50px", height:"50px", margin:"0 auto" });
-var pawn   = jsboard.piece({text:"WP", textIndent:"-9999px", background:"url('images/chess/pawn.png') no-repeat", width:"50px", height:"50px", margin:"0 auto" });
+var pawn   = jsboard.piece({text:"WP", textIndent:"-9999px", background:"url('images/pawn_red.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", });
 
 // create pieces to place in DOM
 var whitePieces = [
