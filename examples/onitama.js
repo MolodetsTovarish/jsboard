@@ -36,10 +36,12 @@ b.cell([0,4]).place(pieces[9]);
 
 // 
 var counter = true;
+var firstCell = "";
+var secondCell = "";
+var move = "";
 
 b.cell("each").on("click", function() {
-    var firstCell = "";
-    var secondCell = "";
+    
     
     if (counter) {
         firstCell = b.cell(this);
@@ -51,10 +53,14 @@ b.cell("each").on("click", function() {
     
     } else {
         secondCell = b.cell(this);
-        secondCell.where().place(firstCell.get());
-        firstCell = b.cell(this).rid();
+        //b.cell(secondCell.where()).place(firstCell.get());
+        //firstCell = b.cell(this).rid();
         
         counter = !counter;
+        
+        move = [firstCell.where(), secondCell.where()];
+        alert(move);
+        alert(move[0])
     }
     
     
