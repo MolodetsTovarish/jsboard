@@ -45,22 +45,23 @@ b.cell("each").on("click", function() {
     
     if (counter) {
         firstCell = b.cell(this);
-        
-        
-        alert(firstCell.get());
-        alert(firstCell.where());
+        console.log("Start", firstCell);
+        //alert(firstCell.get());
+        //alert(firstCell.where());
         counter = !counter;
     
     } else {
         secondCell = b.cell(this);
+	console.log("End:", secondCell);
         //b.cell(secondCell.where()).place(firstCell.get());
         //firstCell = b.cell(this).rid();
         
         counter = !counter;
         
-        move = [firstCell.where(), secondCell.where()];
-        alert(move);
-        alert(move[0])
+        move = firstCell.where().concat(secondCell.where());
+	send_to_server(move);
+	//alert(move);
+        //alert(move[0])
     }
     
     
@@ -76,6 +77,11 @@ b.cell("each").on("click", function() {
         
     //}
 });
+
+
+function send_to_server(move) {
+	console.log("Move", move);
+}
 
 /*
 pieces[0].addEventListener("click", function() { showMoves(this); });
