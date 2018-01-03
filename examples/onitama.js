@@ -33,3 +33,74 @@ b.cell([0,0]).place(pieces[6]);
 b.cell([0,1]).place(pieces[7]);
 b.cell([0,3]).place(pieces[8]);
 b.cell([0,4]).place(pieces[9]);
+
+// 
+var counter = true;
+
+b.cell("each").on("click", function() {
+    var firstCell = "";
+    var secondCell = "";
+    
+    if (counter) {
+        firstCell = b.cell(this);
+        
+        
+        alert(firstCell.get());
+        alert(firstCell.where());
+        counter = !counter;
+    
+    } else {
+        secondCell = b.cell(this);
+        secondCell.where().place(firstCell.get());
+        firstCell = b.cell(this).rid();
+        
+        counter = !counter;
+    }
+    
+    
+    
+    
+    
+    //!=null
+    //if (b.cell(this).get()!=null) {
+        
+        //b.cell(this).place();
+        
+        
+        
+    //}
+});
+
+/*
+pieces[0].addEventListener("click", function() { showMoves(this); });
+
+// show new locations 
+function showMoves(piece) {
+
+    // parentNode is needed because the piece you are clicking 
+    // on doesn't have access to cell functions, therefore you 
+    // need to access the parent of the piece because pieces are 
+    // always contained within in cells
+    var loc = b.cell(piece.parentNode).where();
+    var newLocs = [[loc[0]-1,loc[1]-1],[loc[0]-1,loc[1]+1]];
+
+    // locations to move to and simple jump check
+    for (var i=0; i<newLocs.length; i++) {
+        if (b.cell(newLocs[i]).get()=="B") { 
+            if (!i) newLocs[i] = [loc[0]-2,loc[1]-2];
+            else newLocs[i] = [loc[0]-2,loc[1]+2];
+        }
+        b.cell(newLocs[i]).style({background:"yellow"});
+        b.cell(newLocs[i]).on("click", movePiece);
+    }
+
+    // move piece to new location when clicked
+    function movePiece() {
+        b.cell(this).place(piece);
+        b.removeEvents("click", movePiece);
+        for (var i=0; i<newLocs.length; i++) 
+            b.cell(newLocs[i]).style({background:"lightblue"});
+    }
+
+}
+*/
