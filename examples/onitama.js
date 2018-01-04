@@ -46,15 +46,13 @@ b.cell("each").on("click", function() {
     if (counter) {
         firstCell = b.cell(this);
         console.log("Start", firstCell);
-        //alert(firstCell.get());
-        //alert(firstCell.where());
+	//TODO: handle first click done on the empty cell
         counter = !counter;
     
     } else {
         secondCell = b.cell(this);
+	//TODO: handle the same cell being clicked twice.
 	console.log("End:", secondCell);
-        //b.cell(secondCell.where()).place(firstCell.get());
-        //firstCell = b.cell(this).rid();
         
         counter = !counter;
         
@@ -81,17 +79,16 @@ b.cell("each").on("click", function() {
     // - First coordinate must be a piece
 function verification(move){
     if (b.cell([move[0], move[1]]).get() == null) {
-        false;
-        alert("First click must be a piece");
+        console.log("First click must be a piece");
+        return false;
+
     }
     
-    if (move[0] == move[2] && move[1] == move[3]) {
-        false;
-        alert("False");
+    if (move[0] == move[2] && move[1] == move[3]) {	   
+        console.log("False");
+        return false;
+
     }
-   // else if {
-        
-    //}
 }
 
 
