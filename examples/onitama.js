@@ -59,13 +59,11 @@ b.cell("each").on("click", function() {
         counter = !counter;
         
         move = firstCell.where().concat(secondCell.where());
-	send_to_server(move);
-	//alert(move);
+	       verification(move);
+        send_to_server(move);
+	    //alert(move);
         //alert(move[0])
     }
-    
-    
-    
     
     
     //!=null
@@ -73,10 +71,28 @@ b.cell("each").on("click", function() {
         
         //b.cell(this).place();
         
-        
-        
     //}
 });
+
+
+//need verification for:
+    // - Piece can't move to it's own square 
+    // - Piece can't move to friendly piece squares
+    // - First coordinate must be a piece
+function verification(move){
+    if (b.cell([move[0], move[1]]).get() == null) {
+        false;
+        alert("First click must be a piece");
+    }
+    
+    if (move[0] == move[2] && move[1] == move[3]) {
+        false;
+        alert("False");
+    }
+   // else if {
+        
+    //}
+}
 
 
 function send_to_server(move) {
