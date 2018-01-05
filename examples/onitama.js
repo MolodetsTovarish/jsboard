@@ -53,7 +53,7 @@ b.cell("each").on("click", function() {
     } else {
         
         secondCell = b.cell(this);
-        if (secondCell.where()[0] != firstCell.where()[0] && secondCell.where()[1] != firstCell.where()[1]) {
+        if (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]) {
 	   //TODO: handle the same cell being clicked twice.
 	   console.log("End:", secondCell);
         
