@@ -44,32 +44,28 @@ b.cell("each").on("click", function() {
     
     
     if (counter) {
+        if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
         console.log("Start", firstCell);
-	//TODO: handle first click done on the empty cell
+	   //TODO: handle first click done on the empty cell
         counter = !counter;
-    
+        }
     } else {
+        
         secondCell = b.cell(this);
-	//TODO: handle the same cell being clicked twice.
-	console.log("End:", secondCell);
+        if (secondCell.where() != firstCell.where()) {
+        //if (secondCell.where()[0] != firstCell.where()[0] && secondCell.where()[1] != firstCell.where()[1]) {
+	   //TODO: handle the same cell being clicked twice.
+	   console.log("End:", secondCell);
         
         counter = !counter;
         
         move = firstCell.where().concat(secondCell.where());
-	       verification(move);
+        verification(move);
         send_to_server(move);
-	    //alert(move);
-        //alert(move[0])
+        }
     }
     
-    
-    //!=null
-    //if (b.cell(this).get()!=null) {
-        
-        //b.cell(this).place();
-        
-    //}
 });
 
 
@@ -95,37 +91,3 @@ function verification(move){
 function send_to_server(move) {
 	console.log("Move", move);
 }
-
-/*
-pieces[0].addEventListener("click", function() { showMoves(this); });
-
-// show new locations 
-function showMoves(piece) {
-
-    // parentNode is needed because the piece you are clicking 
-    // on doesn't have access to cell functions, therefore you 
-    // need to access the parent of the piece because pieces are 
-    // always contained within in cells
-    var loc = b.cell(piece.parentNode).where();
-    var newLocs = [[loc[0]-1,loc[1]-1],[loc[0]-1,loc[1]+1]];
-
-    // locations to move to and simple jump check
-    for (var i=0; i<newLocs.length; i++) {
-        if (b.cell(newLocs[i]).get()=="B") { 
-            if (!i) newLocs[i] = [loc[0]-2,loc[1]-2];
-            else newLocs[i] = [loc[0]-2,loc[1]+2];
-        }
-        b.cell(newLocs[i]).style({background:"yellow"});
-        b.cell(newLocs[i]).on("click", movePiece);
-    }
-
-    // move piece to new location when clicked
-    function movePiece() {
-        b.cell(this).place(piece);
-        b.removeEvents("click", movePiece);
-        for (var i=0; i<newLocs.length; i++) 
-            b.cell(newLocs[i]).style({background:"lightblue"});
-    }
-
-}
-*/
