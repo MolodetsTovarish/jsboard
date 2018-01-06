@@ -53,14 +53,16 @@ b.cell("each").on("click", function() {
     } else {
         
         secondCell = b.cell(this);
-        if (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]) {
+        if (not_same_cell()) {
             
-            if (secondCell.get().charAt(0) != firstCell.get().charAt(0)) {
+            if (friendly_piece()) {
+		    console.log("Occupied by friendly piece");
+	    } else {
             
 	       //TODO: handle the same cell being clicked twice.
 	       console.log("End:", secondCell);
         
-            counter = !counter;
+               counter = !counter;
         
             move = firstCell.where().concat(secondCell.where());
         //verification(move);
@@ -71,6 +73,15 @@ b.cell("each").on("click", function() {
     }
     
 });
+
+function not_same_cell() {
+	return (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]); 
+}
+
+function friendly_piece() {
+  return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
+}
+
 
 
 //need verification for:
