@@ -54,14 +54,19 @@ b.cell("each").on("click", function() {
         
         secondCell = b.cell(this);
         if (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]) {
-	   //TODO: handle the same cell being clicked twice.
-	   console.log("End:", secondCell);
+            
+            if (secondCell.get().charAt(0) != firstCell.get().charAt(0)) {
+            
+	       //TODO: handle the same cell being clicked twice.
+	       console.log("End:", secondCell);
         
-        counter = !counter;
+            counter = !counter;
         
-        move = firstCell.where().concat(secondCell.where());
-        verification(move);
-        send_to_server(move);
+            move = firstCell.where().concat(secondCell.where());
+        //verification(move);
+            
+        //send_to_server(move);
+            }
         }
     }
     
@@ -72,8 +77,16 @@ b.cell("each").on("click", function() {
     // - Piece can't move to it's own square 
     // - Piece can't move to friendly piece squares
     // - First coordinate must be a piece
-function verification(move){
-    if (b.cell([move[0], move[1]]).get() == null) {
+function verification(move) {
+    
+    
+    //if (b.cell([move[0], move[1]]).get().charAt(0) == b.cell([move[2], move[3]]).get().charAt(0)) {
+    //    console.log("Cant move on squares with your pieces")
+    //}
+    
+    //b.cell([move[0], move[1]]).get().charAt(0)//
+    
+    /*if (b.cell([move[0], move[1]]).get() == null) {
         console.log("First click must be a piece");
         return false;
 
@@ -83,7 +96,7 @@ function verification(move){
         console.log("False");
         return false;
 
-    }
+    } */
 }
 
 
