@@ -47,7 +47,7 @@ b.cell("each").on("click", function() {
     if (counter) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
-        b.cell(firstCell.where()).DOM().classList.add("green");
+        firstCell.DOM().classList.add("green");
         console.log("Start", firstCell);
 	   //TODO: handle first click done on the empty cell
         counter = !counter;
@@ -67,11 +67,12 @@ b.cell("each").on("click", function() {
         
                counter = !counter;
         
-            move = firstCell.where().concat(secondCell.where());
             
-            move_piece(move);
-            
-            b.cell(firstCell.where()).DOM().classList.remove("green");;
+            firstCell.DOM().classList.remove("green");  	    
+            move_piece();
+  
+
+//            b.cell(firstCell.where()).DOM().classList.remove("green");
             }
         }
     }
@@ -86,13 +87,8 @@ function friendly_piece() {
   return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
 }
 
-function move_piece(move) {
-    //b.cell([move[0], move[1]]).DOM().classList.remove("green");
-    b.cell([move[2], move[3]]).place((b.cell([move[0], move[1]]).DOM().children[0]) //b.cell([move[0], move[1]]).get()
-                                    );
-    //for (var i=0; i<newLocs.length; i++) 
-    
-    b.cell([move[0], move[1]]).rid();
+function move_piece() {
+	secondCell.place(firstCell.DOM().children[0]);
 }
 
 function send_to_server(move) {
