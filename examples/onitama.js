@@ -55,7 +55,7 @@ b.cell("each").on("click", function() {
     } else {
         
         secondCell = b.cell(this);
-        if (not_same_cell()) {
+        if (different_cell()) {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
@@ -79,7 +79,7 @@ b.cell("each").on("click", function() {
     
 });
 
-function not_same_cell() {
+function different_cell() {
 	return (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]); 
 }
 
