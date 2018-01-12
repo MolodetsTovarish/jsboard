@@ -39,6 +39,7 @@ var counter = true;
 var firstCell = "";
 var secondCell = "";
 var move = "";
+var newLocs = "";
 
 b.cell("each").on("click", function() {
     
@@ -46,6 +47,7 @@ b.cell("each").on("click", function() {
     if (counter) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
+        b.cell(firstCell.where()).DOM().classList.add("green");
         console.log("Start", firstCell);
 	   //TODO: handle first click done on the empty cell
         counter = !counter;
@@ -57,6 +59,7 @@ b.cell("each").on("click", function() {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
+                counter = !counter
 	    } else {
             
 	       //TODO: handle the same cell being clicked twice.
@@ -65,9 +68,10 @@ b.cell("each").on("click", function() {
                counter = !counter;
         
             move = firstCell.where().concat(secondCell.where());
-        
+            
             move_piece(move);
-        //send_to_server(move);
+            
+            b.cell(firstCell.where()).DOM().classList.remove("green");;
             }
         }
     }
@@ -83,8 +87,11 @@ function friendly_piece() {
 }
 
 function move_piece(move) {
+    //b.cell([move[0], move[1]]).DOM().classList.remove("green");
     b.cell([move[2], move[3]]).place((b.cell([move[0], move[1]]).DOM().children[0]) //b.cell([move[0], move[1]]).get()
                                     );
+    //for (var i=0; i<newLocs.length; i++) 
+    
     b.cell([move[0], move[1]]).rid();
 }
 
