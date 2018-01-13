@@ -47,7 +47,7 @@ b.cell("each").on("click", function() {
     if (counter) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
-        firstCell.DOM().classList.add("green");
+        highlight_cell(true, firstCell);
         console.log("Start", firstCell);
 	   //TODO: handle first click done on the empty cell
         counter = !counter;
@@ -59,7 +59,7 @@ b.cell("each").on("click", function() {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
-                counter = !counter
+                //counter = !counter;
 	    } else {
             
 	       //TODO: handle the same cell being clicked twice.
@@ -68,7 +68,7 @@ b.cell("each").on("click", function() {
                counter = !counter;
         
             
-            firstCell.DOM().classList.remove("green");  	    
+            highlight_cell(false, firstCell);
             move_piece();
   
 
@@ -89,6 +89,15 @@ function friendly_piece() {
 
 function move_piece() {
 	secondCell.place(firstCell.DOM().children[0]);
+}
+
+function highlight_cell(highlight, cell) {
+    if (highlight){
+       cell.DOM().classList.add("green");
+    }
+    else {
+        cell.DOM().classList.remove("green"); 
+    }
 }
 
 function send_to_server(move) {
