@@ -35,22 +35,29 @@ b.cell([0,3]).place(pieces[8]);
 b.cell([0,4]).place(pieces[9]);
 
 // 
-var counter = true;
+var moveTracker = true;
 var firstCell = "";
 var secondCell = "";
 var move = "";
 var newLocs = "";
 
-b.cell("each").on("click", function() {
+var redTurn = true;
+
+b.cell("each").on("click", function() {    
     
-    
-    if (counter) {
+    if (moveTracker) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
+            
+            if (!check_turn()) {
+                console.log("Not this piece's turn");
+            }
+            else {
         highlight_cell(true, firstCell);
         console.log("Start", firstCell);
-	   //TODO: handle first click done on the empty cell
-        counter = !counter;
+	   //TODO: handle first click done on the empty cell}
+        moveTracker = !moveTracker; }
+            
         }
     } else {
         
@@ -59,24 +66,25 @@ b.cell("each").on("click", function() {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
-                //counter = !counter;
+                //moveTracker = !moveTracker;
 	    } else {
             
 	       //TODO: handle the same cell being clicked twice.
 	       console.log("End:", secondCell);
         
-               counter = !counter;
+               moveTracker = !moveTracker;
         
             
             highlight_cell(false, firstCell);
             move_piece();
   
-
+            redTurn = !redTurn;
 //            b.cell(firstCell.where()).DOM().classList.remove("green");
             }
         }
     }
     
+
 });
 
 function different_cell() {
@@ -85,6 +93,10 @@ function different_cell() {
 
 function friendly_piece() {
   return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
+}
+
+function piece_color() {
+    return firstCell.get().charAt(0);   
 }
 
 function move_piece() {
@@ -98,6 +110,23 @@ function highlight_cell(highlight, cell) {
     else {
         cell.DOM().classList.remove("green"); 
     }
+}
+
+function which_turn() {
+ if (redTurn) {
+     return 'R';
+ }
+    else {
+        return 'B';
+    }
+}
+
+function check_turn() {
+ return (piece_color() == which_turn());   
+}
+
+function make_move() {
+    
 }
 
 function send_to_server(move) {
