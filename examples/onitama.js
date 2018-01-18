@@ -79,7 +79,6 @@ b.cell("each").on("click", function() {
             move_piece();
   
             redTurn = !redTurn;
-//            b.cell(firstCell.where()).DOM().classList.remove("green");
             }
         }
     }
@@ -124,6 +123,18 @@ function which_turn() {
 function check_turn() {
  return (piece_color() == which_turn());   
 }
+
+function game_over() {
+    if (b.cell([0,2]).get() == "RM") { 
+        return true;
+    }
+    else if (b.cell([4,2]).get() == "BM") {
+        return true;   
+    }
+    else { 
+             return false;
+             }
+    }
 
 function make_move() {
     
