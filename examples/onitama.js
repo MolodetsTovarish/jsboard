@@ -1,12 +1,22 @@
+
+// Constants
+const redThrone = [4, 2];
+const blueThrone = [0, 2];
+const blueMaster = "BM";
+const redMaster = "RM";
+const bluePawn = "BP";
+const redPawn = "RP";
+
+
 // create board
 var b = jsboard.board({attach:"game", size:"5x5"});
 b.cell("each").style({width:"75px", height:"75px"});
 
 // setup pieces
-var piece_red_master    = jsboard.piece({text:"RM", textIndent:"-9999px", background:"url('images/white.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"red"});
-var piece_red_pawn      = jsboard.piece({text:"RP", textIndent:"-9999px", background:"url('images/red.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"red" });
-var piece_blue_master   = jsboard.piece({text:"BM", textIndent:"-9999px", background:"url('images/bknight.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"blue" });
-var piece_blue_pawn     = jsboard.piece({text:"BP", textIndent:"-9999px", background:"url('images/black.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"blue" });
+var piece_red_master    = jsboard.piece({text:redMaster, textIndent:"-9999px", background:"url('images/white.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"red"});
+var piece_red_pawn      = jsboard.piece({text:redPawn, textIndent:"-9999px", background:"url('images/red.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"red" });
+var piece_blue_master   = jsboard.piece({text:blueMaster, textIndent:"-9999px", background:"url('images/bknight.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"blue" });
+var piece_blue_pawn     = jsboard.piece({text:bluePawn, textIndent:"-9999px", background:"url('images/black.png') no-repeat", width:"50px", height:"50px", margin:"0 auto", color:"blue" });
 
 // create pieces to place in DOM
 var pieces = [
@@ -129,12 +139,12 @@ function check_turn() {
 }
 
 function game_over() {
-    if (b.cell([0,2]).get() == "RM" || b.cell([4,2]).get() == "BM") { 
-        return true;
-    }
-    else if (secondCell.get() == "RM" || secondCell.get() == "BM") {
-            gameOver = true;
-        }
+    gameOver = (
+      b.cell(blueThrone).get() == redMaster || 
+      b.cell(redThrone).get() == blueMaster || 
+      (redTurn && secondCell.get() == redMaster) || 
+      (!redTurn && secondCell.get() == blueMaster)
+    ) 
 }
 
 function make_move() {
