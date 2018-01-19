@@ -42,6 +42,7 @@ var move = "";
 var newLocs = "";
 
 var redTurn = true;
+var gameOver = false;
 
 b.cell("each").on("click", function() {    
     
@@ -62,6 +63,10 @@ b.cell("each").on("click", function() {
     } else {
         
         secondCell = b.cell(this);
+        console.log(secondCell.get());
+        
+        game_over();
+        
         if (different_cell()) {
             
             if (friendly_piece()) {
@@ -74,10 +79,9 @@ b.cell("each").on("click", function() {
         
                moveTracker = !moveTracker;
         
-            
             highlight_cell(false, firstCell);
             move_piece();
-  
+            
             redTurn = !redTurn;
             }
         }
@@ -125,16 +129,13 @@ function check_turn() {
 }
 
 function game_over() {
-    if (b.cell([0,2]).get() == "RM") { 
+    if (b.cell([0,2]).get() == "RM" || b.cell([4,2]).get() == "BM") { 
         return true;
     }
-    else if (b.cell([4,2]).get() == "BM") {
-        return true;   
-    }
-    else { 
-             return false;
-             }
-    }
+    else if (secondCell.get() == "RM" || secondCell.get() == "BM") {
+            gameOver = true;
+        }
+}
 
 function make_move() {
     
