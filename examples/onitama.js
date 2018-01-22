@@ -1,7 +1,7 @@
 
 // Constants
-const redThrone = [4, 2];
-const blueThrone = [0, 2];
+const redThrone = [4,2];
+const blueThrone = [0,2];
 const blueMaster = "BM";
 const redMaster = "RM";
 const bluePawn = "BP";
@@ -75,24 +75,23 @@ b.cell("each").on("click", function() {
         secondCell = b.cell(this);
         console.log(secondCell.get());
         
-        game_over();
         
         if (different_cell()) {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
                 //moveTracker = !moveTracker;
-	    } else {
+	       } else {
             
-	       //TODO: handle the same cell being clicked twice.
-	       console.log("End:", secondCell);
+	           //TODO: handle the same cell being clicked twice.
+	           console.log("End:", secondCell);
         
                moveTracker = !moveTracker;
         
-            highlight_cell(false, firstCell);
-            move_piece();
-            
-            redTurn = !redTurn;
+                highlight_cell(false, firstCell);
+                game_over();
+                move_piece();
+                redTurn = !redTurn;
             }
         }
     }
@@ -140,10 +139,10 @@ function check_turn() {
 
 function game_over() {
     gameOver = (
-      b.cell(blueThrone).get() == redMaster || 
-      b.cell(redThrone).get() == blueMaster || 
-      (redTurn && secondCell.get() == redMaster) || 
-      (!redTurn && secondCell.get() == blueMaster)
+      (!redTurn && secondCell.get() == redMaster) || 
+      (redTurn && secondCell.get() == blueMaster) || 
+      (!redTurn && secondCell.where().toString() == redThrone.toString() && firstCell.get() == blueMaster) || 
+      (redTurn && secondCell.where().toString() == blueThrone.toString() && firstCell.get() == redMaster)
     ) 
 }
 
