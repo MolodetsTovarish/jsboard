@@ -140,7 +140,7 @@ function check_turn() {
 function game_over() {
     gameOver = (
       opposite_master(secondCell) ||
-      opposite_throne() && my_master(firstCell)
+      opposite_throne(secondCell) && my_master(firstCell)
     ) 
 }
 
@@ -153,12 +153,14 @@ function opposite_master(cell) {
     }
 }
 
-function opposite_throne() {
+function opposite_throne(cell) {
     if (redTurn) {
-        return secondCell.where().toString() == blueThrone.toString();   
+        //return secondCell.where().toString() == blueThrone.toString();
+        return compare_cells(cell.where(), blueThrone);
     }
     else {
-        return secondCell.where().toString() == redThrone.toString();
+        //return secondCell.where().toString() == redThrone.toString();
+        return compare_cells(cell.where(), redThrone);
     }
 }
 
@@ -169,6 +171,10 @@ function my_master(cell) {
     else {
         return cell.get() == blueMaster;
     }
+}
+
+function compare_cells(cell_1, cell_2) {
+    return cell_1.toString() == cell_2.toString();   
 }
 
 function make_move() {
