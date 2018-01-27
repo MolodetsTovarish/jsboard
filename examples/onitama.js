@@ -54,8 +54,9 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
+
 b.cell("each").on("click", function() {    
-    
+if (!gameOver) {    
     if (moveTracker) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
@@ -93,10 +94,11 @@ b.cell("each").on("click", function() {
                 move_piece();
                 redTurn = !redTurn;
             }
+            
         }
     }
     
-
+}
 });
 
 function different_cell() {
@@ -142,6 +144,7 @@ function game_over() {
       opposite_master(secondCell) ||
       opposite_throne(secondCell) && my_master(firstCell)
     ) 
+    
 }
 
 function opposite_master(cell) {
@@ -156,11 +159,11 @@ function opposite_master(cell) {
 function opposite_throne(cell) {
     if (redTurn) {
         //return secondCell.where().toString() == blueThrone.toString();
-        return compare_cells(cell.where(), blueThrone);
+        return compare_coordinates(cell.where(), blueThrone);
     }
     else {
         //return secondCell.where().toString() == redThrone.toString();
-        return compare_cells(cell.where(), redThrone);
+        return compare_coordinates(cell.where(), redThrone);
     }
 }
 
@@ -173,7 +176,7 @@ function my_master(cell) {
     }
 }
 
-function compare_cells(cell_1, cell_2) {
+function compare_coordinates(cell_1, cell_2) {
     return cell_1.toString() == cell_2.toString();   
 }
 
