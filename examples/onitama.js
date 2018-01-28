@@ -56,7 +56,8 @@ var gameOver = false;
 
 
 b.cell("each").on("click", function() {    
-if (!gameOver) {    
+    if (gameOver) return;
+
     if (moveTracker) {
         if (b.cell(this).get() != null) {
         firstCell = b.cell(this);
@@ -98,7 +99,6 @@ if (!gameOver) {
         }
     }
     
-}
 });
 
 function different_cell() {
