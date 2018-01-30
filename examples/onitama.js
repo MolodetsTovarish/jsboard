@@ -110,13 +110,13 @@ b.cell("each").on("click", function() {
 function firstCellListener() {
     console.log("first text");
     
-    cellListener = function() {secondCellListener();}
+    cellListener = secondCellListener;
 }
 
 function secondCellListener() {
     console.log("second text");
     
-    cellListener = function() {firstCellListener();}
+    cellListener = firstCellListener;
 }
 
 function different_cell() {
