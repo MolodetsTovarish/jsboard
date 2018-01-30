@@ -54,7 +54,11 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
+var cellListener = function() { firstCellListener();};
 
+b.cell("each").on("click", function() { cellListener(); });
+
+/*
 b.cell("each").on("click", function() {    
 if (!gameOver) {    
     if (moveTracker) {
@@ -99,7 +103,19 @@ if (!gameOver) {
     }
     
 }
-});
+}); */
+
+function firstCellListener() {
+    console.log("first text");
+    
+    cellListener = function() {secondCellListener();}
+}
+
+function secondCellListener() {
+    console.log("second text");
+    
+    cellListener = function() {firstCellListener();}
+}
 
 function different_cell() {
 	return (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]); 
