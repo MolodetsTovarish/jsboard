@@ -54,9 +54,9 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
-var cellListener = function() { firstCellListener();};
+var cellListener = function(cell) { firstCellListener(cell);};
 
-b.cell("each").on("click", function() { cellListener(); });
+b.cell("each").on("click", function() { cellListener(b.cell(this)); });
 
 /*
 b.cell("each").on("click", function() {    
@@ -107,13 +107,13 @@ b.cell("each").on("click", function() {
 }
 }); */
 
-function firstCellListener() {
+function firstCellListener(cell) {
     console.log("first text");
     
     if (gameOver) return;
 
-        if (b.cell(this).get() != null) {
-        firstCell = b.cell(this);
+        if (cell.get() != null) {
+            firstCell = cell;
             
             if (!check_turn()) {
                 console.log("Not this piece's turn");
@@ -128,10 +128,10 @@ function firstCellListener() {
     
 }
 
-function secondCellListener() {
+function secondCellListener(cell) {
     console.log("second text");
     
-    secondCell = b.cell(this);
+    secondCell = cell;
         console.log(secondCell.get());
         
         
