@@ -110,13 +110,49 @@ b.cell("each").on("click", function() {
 function firstCellListener() {
     console.log("first text");
     
-    cellListener = secondCellListener;
+    if (gameOver) return;
+
+        if (b.cell(this).get() != null) {
+        firstCell = b.cell(this);
+            
+            if (!check_turn()) {
+                console.log("Not this piece's turn");
+            }
+            else {
+                highlight_cell(true, firstCell);
+                console.log("Start", firstCell);
+    
+                cellListener = secondCellListener;
+            }
+        }
+    
 }
 
 function secondCellListener() {
     console.log("second text");
     
-    cellListener = firstCellListener;
+    secondCell = b.cell(this);
+        console.log(secondCell.get());
+        
+        
+        if (different_cell()) {
+            
+            if (friendly_piece()) {
+		    console.log("Occupied by friendly piece");
+                //moveTracker = !moveTracker;
+	       } else {
+            
+	           //TODO: handle the same cell being clicked twice.
+	           console.log("End:", secondCell);
+        
+                highlight_cell(false, firstCell);
+                game_over();
+                move_piece();
+                redTurn = !redTurn;
+    
+                cellListener = firstCellListener;
+            }
+        }
 }
 
 function different_cell() {
