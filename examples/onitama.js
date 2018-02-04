@@ -58,55 +58,6 @@ var cellListener = function(cell) { firstCellListener(cell);};
 
 b.cell("each").on("click", function() { cellListener(b.cell(this)); });
 
-/*
-b.cell("each").on("click", function() {    
-    if (gameOver) return;
-
-    if (moveTracker) {
-        if (b.cell(this).get() != null) {
-        firstCell = b.cell(this);
-            
-            if (!check_turn()) {
-                console.log("Not this piece's turn");
-            }
-            else {
-        highlight_cell(true, firstCell);
-        console.log("Start", firstCell);
-	   //TODO: handle first click done on the empty cell}
-        moveTracker = !moveTracker; }
-            
-        }
-    } else {
-        
-        secondCell = b.cell(this);
-        console.log(secondCell.get());
-        
-        
-        if (different_cell()) {
-            
-            if (friendly_piece()) {
-		    console.log("Occupied by friendly piece");
-                //moveTracker = !moveTracker;
-	       } else {
-            
-	           //TODO: handle the same cell being clicked twice.
-	           console.log("End:", secondCell);
-        
-               moveTracker = !moveTracker;
-        
-                highlight_cell(false, firstCell);
-                game_over();
-                move_piece();
-                redTurn = !redTurn;
-            }
-            
-        }
-    }
-    
-
-}
-}); */
-
 function firstCellListener(cell) {
     console.log("first text");
     
@@ -133,9 +84,6 @@ function secondCellListener(cell) {
     
     secondCell = cell;
         console.log(secondCell.get());
-        
-        
-        if (different_cell()) {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
@@ -152,11 +100,6 @@ function secondCellListener(cell) {
     
                 cellListener = firstCellListener;
             }
-        }
-}
-
-function different_cell() {
-	return (secondCell.where()[0] != firstCell.where()[0] || secondCell.where()[1] != firstCell.where()[1]); 
 }
 
 function friendly_piece() {
