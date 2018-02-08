@@ -87,7 +87,8 @@ function secondCellListener(cell) {
             
             if (friendly_piece()) {
 		    console.log("Occupied by friendly piece");
-                //moveTracker = !moveTracker;
+                highlight_cell(false, firstCell);
+                cellListener = firstCellListener;
 	       } else {
             
 	           //TODO: handle the same cell being clicked twice.
