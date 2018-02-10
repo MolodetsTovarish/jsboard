@@ -85,12 +85,18 @@ function secondCellListener(cell) {
     secondCell = cell;
         console.log(secondCell.get());
             
-            if (friendly_piece()) {
+            if (same_piece()) {
 		    console.log("Occupied by friendly piece");
                 highlight_cell(false, firstCell);
-                cellListener = firstCellListener;
-	       } else {
-            
+                firstCellListener();
+	       }
+    
+            else if (friendly_piece()) {
+                highlight_cell(false, firstCell);
+                firstCellListener();
+            }
+    
+            else {
 	           //TODO: handle the same cell being clicked twice.
 	           console.log("End:", secondCell);
         
@@ -105,6 +111,10 @@ function secondCellListener(cell) {
 
 function friendly_piece() {
   return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
+}
+
+function same_piece() {
+    return (secondCell.get() != null && (secondCell.get().toString() == firstCell.get().toString()));
 }
 
 function piece_color() {
