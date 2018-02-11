@@ -85,15 +85,15 @@ function secondCellListener(cell) {
     secondCell = cell;
         console.log(secondCell.get());
             
-            if (same_piece()) {
-		    console.log("Occupied by friendly piece");
-                highlight_cell(false, firstCell);
-                firstCellListener();
-	       }
+           // if (same_piece()) {
+		   // console.log("Occupied by friendly piece");
+           //     highlight_cell(false, firstCell);
+           //     cellListener = firstCellListener;
+	       //}
     
-            else if (friendly_piece()) {
+            if (friendly_piece()) {
                 highlight_cell(false, firstCell);
-                firstCellListener();
+                firstCellListener(secondCell);
             }
     
             else {
