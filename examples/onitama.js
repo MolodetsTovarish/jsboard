@@ -196,8 +196,12 @@ function randomize_num_of_moves(min_range, max_range) {
     return Math.floor(Math.random() * (max_range - min_range + 1) ) + min_range;
 }
 
-function randomize_coordinates() {
+function randomize_coordinate() {
     return Math.floor(Math.random() * 4);
+}
+
+function randomize_move() {
+    return [randomize_coordinate(), randomize_coordinate()];
 }
 
 function get_candidate_moves(piece, card) {
@@ -208,7 +212,7 @@ function get_candidate_moves(piece, card) {
     
     //randomly choose 2 to 4 empty cells
     for (i = 0; i < randomize_num_of_moves(2, 4); i++) {
-        moveList.push([randomize_coordinates, randomize_coordinates]);
+        moveList.push(randomize_move());
         
         //if move in moveList, select another move
         
