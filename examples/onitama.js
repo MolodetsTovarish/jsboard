@@ -192,6 +192,34 @@ function make_move() {
     
 }
 
+function randomize_num_of_moves(min_range, max_range) {
+    return Math.floor(Math.random() * (max_range - min_range + 1) ) + min_range;
+}
+
+function randomize_coordinates() {
+    return Math.floor(Math.random() * 4);
+}
+
+function get_candidate_moves(piece, card) {
+    
+    var x = 0;
+    var y = 0;
+    var moveList = [];
+    
+    //randomly choose 2 to 4 empty cells
+    for (i = 0; i < randomize_num_of_moves(2, 4); i++) {
+        moveList.push([randomize_coordinates, randomize_coordinates]);
+        
+        //if move in moveList, select another move
+        
+    }
+    
+    console.log(moveList.toString());
+    
+    //for cells, highlight true
+    //unhighlight other cells
+}
+
 function send_to_server(move) {
 	console.log("Move", move);
 }
