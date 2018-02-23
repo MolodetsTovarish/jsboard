@@ -184,6 +184,10 @@ function my_master(cell) {
     }
 }
 
+function cell_not_empty() {
+    cell.get() != null;
+}
+
 function compare_coordinates(cell_1, cell_2) {
     return cell_1.toString() == cell_2.toString();   
 }
@@ -201,7 +205,7 @@ function randomize_coordinate() {
 }
 
 function randomize_move() {
-    return [randomize_coordinate(), randomize_coordinate()];
+    return b.cell([randomize_coordinate(), randomize_coordinate()]);
 }
 
 function get_candidate_moves(piece, card) {
@@ -209,14 +213,19 @@ function get_candidate_moves(piece, card) {
     var x = 0;
     var y = 0;
     var moveList = [];
+    var i = 0;
     
     //randomly choose 2 to 4 empty cells
-    for (i = 0; i < randomize_num_of_moves(2, 4); i++) {
+    //for (i = 0; i < randomize_num_of_moves(2, 4); i++) {
+    while (i < randomize_num_of_moves(2,4)) {
         moveList.push(randomize_move());
         
         //if move in moveList, select another move
-        
+      
+        i++;
+    
     }
+    //}
     
     console.log(moveList.toString());
     
