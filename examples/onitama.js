@@ -227,7 +227,7 @@ function get_candidate_moves(piece, card) {
             
         }
         else {
-            moveList.push(randomize_move());
+            moveList.push(move);
         
             i++; 
         }
