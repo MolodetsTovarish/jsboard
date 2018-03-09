@@ -215,25 +215,21 @@ function get_candidate_moves(piece, card) {
     var moveList = [];
     var i = 0;
     var num_of_moves = randomize_num_of_moves(2,4);
-    var move = randomize_move();
     
     //randomly choose 2 to 4 empty cells
-    //for (i = 0; i < randomize_num_of_moves(2, 4); i++) {
-    
-    //if move in moveList, select another move
     while (i < num_of_moves) {
+        //if move in moveList, select another move...
         if (moveList.indexOf(move) > -1) {
             move = randomize_move();
             
         }
+        //otherwise, add the move to the moveList
         else {
             moveList.push(move);
-        
             i++; 
         }
     
     }
-    //}
     
     console.log(moveList.toString());
     
