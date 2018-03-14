@@ -219,16 +219,15 @@ function get_candidate_moves(piece, card) {
     //randomly choose 2 to 4 empty cells
     while (i < num_of_moves) {
         //if move in moveList, select another move...
-        if (moveList.indexOf(move) > -1) {
-            move = randomize_move();
-            
-        }
-        //otherwise, add the move to the moveList
-        else {
+        move = randomize_move();
+        
+        if (moveList.indexOf(move) <= -1 //&& !same_piece() && !friendly_piece()
+           ) {
             moveList.push(move);
             i++; 
         }
-    
+        
+        
     }
     
     console.log(moveList.toString());
