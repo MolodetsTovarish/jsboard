@@ -91,7 +91,7 @@ function secondCellListener(cell) {
            //     cellListener = firstCellListener;
 	       //}
     
-            if (friendly_piece()) {
+            if (friendly_piece(firstCell, secondCell)) {
                 highlight_cell(false, firstCell);
                 firstCellListener(secondCell);
             }
@@ -109,7 +109,7 @@ function secondCellListener(cell) {
             }
 }
 
-function friendly_piece() {
+function friendly_piece(firstCell, secondCell) {
   return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
 }
 
@@ -218,11 +218,11 @@ function get_candidate_moves(piece, card) {
     
     //randomly choose 2 to 4 empty cells
     while (i < num_of_moves) {
-        //if move in moveList, select another move...
-        move = randomize_move();
         
-        if (moveList.indexOf(move) <= -1 //&& !same_piece() && !friendly_piece()
-           ) {
+        move = randomize_move();
+        //if move in moveList, select another move...
+        if (moveList.indexOf(move) <= -1 || !friendly_piece(piece, move))
+        {
             moveList.push(move);
             i++; 
         }
@@ -234,6 +234,11 @@ function get_candidate_moves(piece, card) {
     
     //for cells, highlight true
     //unhighlight other cells
+    for (i = 0; i < moveList.length; i++)
+    {
+        highlight_cell(true, moveList[i]);
+    }
+    
 }
 
 function send_to_server(move) {
