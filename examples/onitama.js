@@ -54,6 +54,8 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
+var highlightedMoves;
+
 var cellListener = function(cell) { firstCellListener(cell);};
 
 b.cell("each").on("click", function() { cellListener(b.cell(this)); });
@@ -232,13 +234,19 @@ function get_candidate_moves(piece, card) {
     
     console.log(moveList.toString());
     
-    //for cells, highlight true
-    //unhighlight other cells
-    for (i = 0; i < moveList.length; i++)
-    {
-        highlight_cell(true, moveList[i]);
-    }
+    highlightedMoves = moveList;
     
+    return moveList;
+    
+}
+
+//for cells, highlight true
+//unhighlight other cells
+function highlight_candidate_cells(highlight) {
+    for (i = 0; i < highlightedMoves.length; i++)
+    {
+        highlight_cell(highlight, highlightedMoves[i]);
+    }
 }
 
 function send_to_server(move) {
