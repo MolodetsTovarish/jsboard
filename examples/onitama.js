@@ -249,6 +249,16 @@ function highlight_candidate_cells(highlight) {
     }
 }
 
+//main play loop
+function play() {
+    //when first cell is clicked
+    get_candidate_moves(firstCell, 1);
+    highlight_candidate_cells(true);
+    //when second cell is clicked:
+    //highlight_candidate_cells(false);
+    
+}
+
 function send_to_server(move) {
 	console.log("Move", move);
 }
