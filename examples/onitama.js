@@ -74,6 +74,9 @@ function firstCellListener(cell) {
             else {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
+                
+                highlightedMoves = get_candidate_moves(firstCell, 1);
+                highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
             }
@@ -103,6 +106,7 @@ function secondCellListener(cell) {
 	           console.log("End:", secondCell);
         
                 highlight_cell(false, firstCell);
+                highlight_candidate_cells(false);
                 game_over();
                 move_piece();
                 redTurn = !redTurn;
@@ -234,8 +238,6 @@ function get_candidate_moves(piece, card) {
     
     console.log(moveList.toString());
     
-    highlightedMoves = moveList;
-    
     return moveList;
     
 }
@@ -243,21 +245,23 @@ function get_candidate_moves(piece, card) {
 //for cells, highlight true
 //unhighlight other cells
 function highlight_candidate_cells(highlight) {
+    
     for (i = 0; i < highlightedMoves.length; i++)
     {
         highlight_cell(highlight, highlightedMoves[i]);
     }
 }
 
-//main play loop
-function play() {
+//NOTE TO SELF: PUT THIS STUFF IN THE ONCLICK SECTIONS
+
+//function get_and_highlight_candidate_moves() {
     //when first cell is clicked
-    get_candidate_moves(firstCell, 1);
-    highlight_candidate_cells(true);
+ //   get_candidate_moves(firstCell, 1);
+ //   highlight_candidate_cells(true);
     //when second cell is clicked:
     //highlight_candidate_cells(false);
     
-}
+//}
 
 function send_to_server(move) {
 	console.log("Move", move);
