@@ -44,7 +44,6 @@ b.cell([0,1]).place(pieces[7]);
 b.cell([0,3]).place(pieces[8]);
 b.cell([0,4]).place(pieces[9]);
 
-// 
 var moveTracker = true;
 var firstCell = "";
 var secondCell = "";
@@ -89,12 +88,6 @@ function secondCellListener(cell) {
     
     secondCell = cell;
         console.log(secondCell.get());
-            
-           // if (same_piece()) {
-		   // console.log("Occupied by friendly piece");
-           //     highlight_cell(false, firstCell);
-           //     cellListener = firstCellListener;
-	       //}
     
             if (friendly_piece(firstCell, secondCell)) {
                 highlight_cell(false, firstCell);
@@ -102,7 +95,6 @@ function secondCellListener(cell) {
             }
     
             else {
-	           //TODO: handle the same cell being clicked twice.
 	           console.log("End:", secondCell);
         
                 highlight_cell(false, firstCell);
@@ -116,11 +108,11 @@ function secondCellListener(cell) {
 }
 
 function friendly_piece(firstCell, secondCell) {
-  return (secondCell.get() != null && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
+  return (cell_not_empty(secondCell) && (secondCell.get().charAt(0) == firstCell.get().charAt(0))); 
 }
 
 function same_piece() {
-    return (secondCell.get() != null && (secondCell.get().toString() == firstCell.get().toString()));
+    return (cell_not_empty(secondCell) && (secondCell.get().toString() == firstCell.get().toString()));
 }
 
 function piece_color() {
@@ -172,11 +164,9 @@ function opposite_master(cell) {
 
 function opposite_throne(cell) {
     if (redTurn) {
-        //return secondCell.where().toString() == blueThrone.toString();
         return compare_coordinates(cell.where(), blueThrone);
     }
     else {
-        //return secondCell.where().toString() == redThrone.toString();
         return compare_coordinates(cell.where(), redThrone);
     }
 }
@@ -196,10 +186,6 @@ function cell_not_empty(cell) {
 
 function compare_coordinates(cell_1, cell_2) {
     return cell_1.toString() == cell_2.toString();   
-}
-
-function make_move() {
-    
 }
 
 function randomize_num_of_moves(min_range, max_range) {
@@ -233,7 +219,6 @@ function get_candidate_moves(piece, card) {
             i++; 
         }
         
-        
     }
     
     console.log(moveList.toString());
@@ -251,17 +236,6 @@ function highlight_candidate_cells(highlight) {
         highlight_cell(highlight, highlightedMoves[i]);
     }
 }
-
-//NOTE TO SELF: PUT THIS STUFF IN THE ONCLICK SECTIONS
-
-//function get_and_highlight_candidate_moves() {
-    //when first cell is clicked
- //   get_candidate_moves(firstCell, 1);
- //   highlight_candidate_cells(true);
-    //when second cell is clicked:
-    //highlight_candidate_cells(false);
-    
-//}
 
 function send_to_server(move) {
 	console.log("Move", move);
