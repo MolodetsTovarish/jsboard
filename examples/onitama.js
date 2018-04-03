@@ -67,6 +67,10 @@ function firstCellListener(cell) {
         if (cell_not_empty(cell)) {
             firstCell = cell;
             
+            if (highlightedMoves !=  undefined) {
+                highlight_candidate_cells(false);
+            }
+            
             if (!check_turn()) {
                 console.log("Not this piece's turn");
             }
@@ -193,7 +197,7 @@ function randomize_num_of_moves(min_range, max_range) {
 }
 
 function randomize_coordinate() {
-    return Math.floor(Math.random() * 4);
+    return Math.floor(Math.random() * 5);
 }
 
 function randomize_move() {
@@ -213,7 +217,7 @@ function get_candidate_moves(piece, card) {
         
         move = randomize_move();
         //if move in moveList, select another move...
-        if (moveList.indexOf(move) <= -1 || !friendly_piece(piece, move))
+        if (moveList.indexOf(move) <= -1 && !friendly_piece(piece, move))
         {
             moveList.push(move);
             i++; 
