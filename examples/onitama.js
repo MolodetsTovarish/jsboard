@@ -53,7 +53,7 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
-var highlightedMoves;
+var highlightedMoves = "";
 
 var cellListener = function(cell) { firstCellListener(cell);};
 
@@ -67,7 +67,7 @@ function firstCellListener(cell) {
         if (cell_not_empty(cell)) {
             firstCell = cell;
             
-            if (highlightedMoves !=  undefined) {
+            if (highlightedMoves != undefined) {
                 highlight_candidate_cells(false);
             }
             
@@ -78,7 +78,7 @@ function firstCellListener(cell) {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
                 
-                highlightedMoves = get_candidate_moves(firstCell, 1);
+                highlightedMoves = get_candidate_moves(firstCell, 1); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -98,7 +98,7 @@ function secondCellListener(cell) {
                 firstCellListener(secondCell);
             }
     
-            else {
+            else if (is_candidate_move(secondCell)) {
 	           console.log("End:", secondCell);
         
                 highlight_cell(false, firstCell);
@@ -109,6 +109,9 @@ function secondCellListener(cell) {
     
                 cellListener = firstCellListener;
             }
+        //else {
+        //    null;
+        //}
 }
 
 function friendly_piece(firstCell, secondCell) {
@@ -228,6 +231,11 @@ function get_candidate_moves(piece, card) {
     console.log(moveList.toString());
     
     return moveList;
+    
+}
+
+function is_candidate_move(move) {
+    return highlightedMoves.indexOf(move) > -1;
     
 }
 
