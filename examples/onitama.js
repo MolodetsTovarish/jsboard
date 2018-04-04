@@ -53,24 +53,20 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
-var highlightedMoves = "";
+var highlightedMoves = [];
 
 var cellListener = function(cell) { firstCellListener(cell);};
 
 b.cell("each").on("click", function() { cellListener(b.cell(this)); });
 
 function firstCellListener(cell) {
+    highlight_candidate_cells(false);
     console.log("first text");
     
     if (gameOver) return;
 
         if (cell_not_empty(cell)) {
             firstCell = cell;
-            
-            if (highlightedMoves != undefined) {
-                highlight_candidate_cells(false);
-            }
-            
             if (!check_turn()) {
                 console.log("Not this piece's turn");
             }
@@ -91,7 +87,7 @@ function secondCellListener(cell) {
     console.log("second text");
     
     secondCell = cell;
-        console.log(secondCell.get());
+        console.log("Second cell:", secondCell.get());
     
             if (friendly_piece(firstCell, secondCell)) {
                 highlight_cell(false, firstCell);
@@ -204,7 +200,7 @@ function randomize_coordinate() {
 }
 
 function randomize_move() {
-    return b.cell([randomize_coordinate(), randomize_coordinate()]);
+    return [randomize_coordinate(), randomize_coordinate()];
 }
 
 function get_candidate_moves(piece, card) {
@@ -220,7 +216,7 @@ function get_candidate_moves(piece, card) {
         
         move = randomize_move();
         //if move in moveList, select another move...
-        if (moveList.indexOf(move) <= -1 && !friendly_piece(piece, move))
+        if (moveList.indexOf(move) <= -1 && !friendly_piece(piece, b.cell(move)))
         {
             moveList.push(move);
             i++; 
@@ -235,9 +231,14 @@ function get_candidate_moves(piece, card) {
 }
 
 function is_candidate_move(move) {
+    console.log("is candidate move", move.where());
+    for (i = 0; i < highlightedMoves.length; i++) {
+       console.log("highlighed", i, highlightedMoves[i]);	
+    }	    
     return highlightedMoves.indexOf(move) > -1;
     
 }
+
 
 //for cells, highlight true
 //unhighlight other cells
@@ -245,7 +246,7 @@ function highlight_candidate_cells(highlight) {
     
     for (i = 0; i < highlightedMoves.length; i++)
     {
-        highlight_cell(highlight, highlightedMoves[i]);
+        highlight_cell(highlight, b.cell(highlightedMoves[i]));
     }
 }
 
