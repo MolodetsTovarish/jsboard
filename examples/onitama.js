@@ -94,7 +94,7 @@ function secondCellListener(cell) {
                 firstCellListener(secondCell);
             }
     
-            else if (is_candidate_move(secondCell)) {
+            else if (is_candidate_move(secondCell.where())) {
 	           console.log("End:", secondCell);
         
                 highlight_cell(false, firstCell);
@@ -105,9 +105,6 @@ function secondCellListener(cell) {
     
                 cellListener = firstCellListener;
             }
-        //else {
-        //    null;
-        //}
 }
 
 function friendly_piece(firstCell, secondCell) {
@@ -153,7 +150,6 @@ function game_over() {
       opposite_master(secondCell) ||
       opposite_throne(secondCell) && my_master(firstCell)
     ) 
-    
 }
 
 function opposite_master(cell) {
@@ -231,11 +227,14 @@ function get_candidate_moves(piece, card) {
 }
 
 function is_candidate_move(move) {
-    console.log("is candidate move", move.where());
+    console.log("is candidate move", move);
     for (i = 0; i < highlightedMoves.length; i++) {
-       console.log("highlighed", i, highlightedMoves[i]);	
+        console.log("highlighed", i, highlightedMoves[i]);
+        if (compare_coordinates(highlightedMoves[i], move)) {
+            return true;
+        }
     }	    
-    return highlightedMoves.indexOf(move) > -1;
+    //return highlightedMoves.indexOf(move) > -1;
     
 }
 
