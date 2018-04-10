@@ -234,7 +234,7 @@ function is_candidate_move(move) {
             return true;
         }
     }	    
-    //return highlightedMoves.indexOf(move) > -1;
+    return false;
     
 }
 
