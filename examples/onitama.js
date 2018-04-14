@@ -44,6 +44,41 @@ b.cell([0,1]).place(pieces[7]);
 b.cell([0,3]).place(pieces[8]);
 b.cell([0,4]).place(pieces[9]);
 
+//Cards
+var cards = [ 
+  ["horse",     [0, 1], [0, -1], [-1, 0]],
+
+  ["ox",        [0, 1], [0, -1], [1, 0]],
+
+  ["crane",     [0, 1], [-1, -1], [1, -1]],
+
+  ["mantis",    [-1, 1], [1, 1], [0, -1]],
+    
+  ["eel",       [-1, 1], [-1, -1], [1, 0]],
+
+  ["cobra",     [-1, 0], [1, 1], [1, -1]],
+
+  ["rooster",   [-1, -1], [-1, 0], [1, 0], [1, 1]],
+             
+  ["goose",     [-1, 1], [-1, 0], [1, 0], [1, -1]],
+
+  ["frog",      [-2, 0], [-1, 1], [1, -1]],
+ 
+  ["rabbit",    [-1, -1], [1, 1], [2,0]],
+
+  ["monkey",    [-1, 1], [1, 1], [-1, -1], [1, -1]],
+
+  ["boar",      [1, 0], [-1, 0], [0, 1]],
+
+  ["tiger",     [0, 2], [0, -1]],
+
+  ["dragon",    [-1, -1], [1, -1], [-2, 1], [2, 1]],
+
+  ["crab",      [0, 1], [-2, 0], [2, 0]],
+
+  ["elephant",  [-1, 1], [-1, 0], [1, 0], [1, 1]]
+]
+
 var moveTracker = true;
 var firstCell = "";
 var secondCell = "";
@@ -53,7 +88,7 @@ var newLocs = "";
 var redTurn = true;
 var gameOver = false;
 
-var highlightedMoves = [];
+var candidateMoves = [];
 
 var cellListener = function(cell) { firstCellListener(cell);};
 
@@ -74,7 +109,7 @@ function firstCellListener(cell) {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
                 
-                highlightedMoves = get_candidate_moves(firstCell, 1); 
+                candidateMoves = get_candidate_moves(firstCell, 1); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -216,21 +251,19 @@ function get_candidate_moves(piece, card) {
         {
             moveList.push(move);
             i++; 
-        }
-        
+        } 
     }
-    
+
     console.log(moveList.toString());
-    
     return moveList;
     
 }
 
 function is_candidate_move(move) {
     console.log("is candidate move", move);
-    for (i = 0; i < highlightedMoves.length; i++) {
-        console.log("highlighed", i, highlightedMoves[i]);
-        if (compare_coordinates(highlightedMoves[i], move)) {
+    for (i = 0; i < candidateMoves.length; i++) {
+        console.log("highlighed", i, candidateMoves[i]);
+        if (compare_coordinates(candidateMoves[i], move)) {
             return true;
         }
     }	    
@@ -238,14 +271,13 @@ function is_candidate_move(move) {
     
 }
 
-
 //for cells, highlight true
 //unhighlight other cells
 function highlight_candidate_cells(highlight) {
     
-    for (i = 0; i < highlightedMoves.length; i++)
+    for (i = 0; i < candidateMoves.length; i++)
     {
-        highlight_cell(highlight, b.cell(highlightedMoves[i]));
+        highlight_cell(highlight, b.cell(candidateMoves[i]));
     }
 }
 
