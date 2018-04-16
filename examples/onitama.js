@@ -46,37 +46,37 @@ b.cell([0,4]).place(pieces[9]);
 
 //Cards
 var cards = [ 
-  ["horse",     [0, 1], [0, -1], [-1, 0]],
+  ["horse",     [1, 0], [0, -1], [-1, 0]],
 
-  ["ox",        [0, 1], [0, -1], [1, 0]],
+  ["ox",        [1, 0], [-1, 0], [0, 1]],
 
-  ["crane",     [0, 1], [-1, -1], [1, -1]],
+  ["crane",     [1, 0], [-1, -1], [-1, 1]],
 
-  ["mantis",    [-1, 1], [1, 1], [0, -1]],
+  ["mantis",    [1, -1], [1, 1], [-1, 0]],
     
-  ["eel",       [-1, 1], [-1, -1], [1, 0]],
+  ["eel",       [1, -1], [-1, -1], [0, 1]],
 
-  ["cobra",     [-1, 0], [1, 1], [1, -1]],
+  ["cobra",     [0, -1], [1, 1], [-1, 1]],
 
-  ["rooster",   [-1, -1], [-1, 0], [1, 0], [1, 1]],
+  ["rooster",   [-1, -1], [0, -1], [0, 1], [1, 1]],
              
-  ["goose",     [-1, 1], [-1, 0], [1, 0], [1, -1]],
+  ["goose",     [-1, 1], [0, -1], [0, 1], [1, -1]],
 
-  ["frog",      [-2, 0], [-1, 1], [1, -1]],
+  ["frog",      [0, -2], [1, -1], [-1, 1]],
  
-  ["rabbit",    [-1, -1], [1, 1], [2,0]],
+  ["rabbit",    [-1, -1], [1, 1], [0, 2]],
 
-  ["monkey",    [-1, 1], [1, 1], [-1, -1], [1, -1]],
+  ["monkey",    [1, -1], [1, 1], [-1, -1], [-1, 1]],
 
-  ["boar",      [1, 0], [-1, 0], [0, 1]],
+  ["boar",      [0, 1], [0, -1], [1, 0]],
 
-  ["tiger",     [0, 2], [0, -1]],
+  ["tiger",     [2, 0], [-1, 0]],
 
-  ["dragon",    [-1, -1], [1, -1], [-2, 1], [2, 1]],
+  ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]],
 
-  ["crab",      [0, 1], [-2, 0], [2, 0]],
+  ["crab",      [1, 0], [0, -2], [0, 2]],
 
-  ["elephant",  [-1, 1], [-1, 0], [1, 0], [1, 1]]
+  ["elephant",  [1, -1], [0, -1], [0, 1], [1, 1]]
 ]
 
 var moveTracker = true;
@@ -108,8 +108,8 @@ function firstCellListener(cell) {
             else {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
-                
-                candidateMoves = get_candidate_moves(firstCell, 1); 
+                                                                        //placeholder
+                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]]); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -257,6 +257,41 @@ function get_candidate_moves(piece, card) {
     console.log(moveList.toString());
     return moveList;
     
+}
+
+function get_candidate_moves_ver2(piece, card) {
+    
+    var x = 0;
+    var y = 0;
+    var moveList = [];
+    var i = 0;
+    
+    //generate moves here()
+    //starts with one because first item in cards list is name of card
+    
+    for (i = 1; i < card.length; i++) {
+        move = [card[i][0] + piece.where()[0], card[i][1] + piece.where()[1]];
+        console.log("MOVE", move);
+        
+        if (!friendly_piece(piece, b.cell(move)) && within_cell_range(move))
+        {
+            moveList.push(move);
+            console.log("MOVELIST (AT i:", i, "):", moveList);
+             
+        }
+        
+        i++;
+    }
+
+    console.log("MOVELIST: ", moveList.toString());
+    return moveList;
+    
+}
+
+function within_cell_range(move){
+    if (move[0] >= 0 && move[0] < 5 && move[1] >= 0 && move[1] < 5) {
+        return true
+    }
 }
 
 function is_candidate_move(move) {
