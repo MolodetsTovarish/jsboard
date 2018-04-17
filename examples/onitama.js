@@ -264,13 +264,15 @@ function get_candidate_moves_ver2(piece, card) {
     var x = 0;
     var y = 0;
     var moveList = [];
-    var i = 0;
     
     //generate moves here()
     //starts with one because first item in cards list is name of card
-    
-    for (i = 1; i < card.length; i++) {
-        move = [card[i][0] + piece.where()[0], card[i][1] + piece.where()[1]];
+    var rules  = card.slice(1); 
+    var piece_coords = piece.where();
+    for (i = 0; i < rules.length; i++) {
+	var up_down = rules[i][0];
+        var left_right = rules[i][1];	
+        move = [up_down + piece_coords[0], left_right + piece_coords[1]];
         console.log("MOVE", move);
         
         if (!friendly_piece(piece, b.cell(move)) && within_cell_range(move))
@@ -280,7 +282,6 @@ function get_candidate_moves_ver2(piece, card) {
              
         }
         
-        i++;
     }
 
     console.log("MOVELIST: ", moveList.toString());
