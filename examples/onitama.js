@@ -6,7 +6,9 @@ const blueMaster = "BM";
 const redMaster = "RM";
 const bluePawn = "BP";
 const redPawn = "RP";
-
+const redDirection = -1;
+const blueDirection = 1;
+var currentDirection = redDirection;
 
 // create board
 var b = jsboard.board({attach:"game", size:"5x5"});
@@ -109,7 +111,7 @@ function firstCellListener(cell) {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
                                                                         //placeholder
-                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]]); 
+                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]], currentDirection); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -137,7 +139,8 @@ function secondCellListener(cell) {
                 game_over();
                 move_piece();
                 redTurn = !redTurn;
-    
+                currentDirection = currentDirection * redDirection;
+                
                 cellListener = firstCellListener;
             }
 }
@@ -259,7 +262,7 @@ function get_candidate_moves(piece, card) {
     
 }
 
-function get_candidate_moves_ver2(piece, card) {
+function get_candidate_moves_ver2(piece, card, direction) {
     
     var x = 0;
     var y = 0;
@@ -272,7 +275,7 @@ function get_candidate_moves_ver2(piece, card) {
     for (i = 0; i < rules.length; i++) {
 	var up_down = rules[i][0];
         var left_right = rules[i][1];	
-        move = [up_down + piece_coords[0], left_right + piece_coords[1]];
+        move = [(up_down * direction) + piece_coords[0], (left_right * direction) + piece_coords[1]];
         console.log("MOVE", move);
         
         if (!friendly_piece(piece, b.cell(move)) && within_cell_range(move))
@@ -315,6 +318,35 @@ function highlight_candidate_cells(highlight) {
     {
         highlight_cell(highlight, b.cell(candidateMoves[i]));
     }
+}
+
+//Change the direction of the moves depending on which player's turn it is
+//FUNCTION NOT IN USE CURRENTLY
+function change_direction(is_redTurn, card) {
+    //Multiply moves by -1
+    var rules  = card.slice(1);
+    
+    var inverted_list = [];
+    
+    //if player 1 turn, direction = -1
+    if (is_redTurn) //redTurn
+    {
+        
+        for (i = 0; i < rules.length; i++) 
+        {
+	        var up_down = rules[i][0];
+            var left_right = rules[i][1];
+            var move = [up_down * redDirection, left_right * redDirection]
+            
+            inverted_list.push(move);
+            console.log("RED MOVES (AT i:", i, "):", inverted_list);
+        }
+        
+        return inverted_list;
+        
+    }
+    
+    
 }
 
 function send_to_server(move) {
