@@ -6,9 +6,6 @@ const blueMaster = "BM";
 const redMaster = "RM";
 const bluePawn = "BP";
 const redPawn = "RP";
-const redDirection = -1;
-const blueDirection = 1;
-var currentDirection = redDirection;
 
 // create board
 var b = jsboard.board({attach:"game", size:"5x5"});
@@ -111,7 +108,7 @@ function firstCellListener(cell) {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
                                                                         //placeholder
-                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]], currentDirection); 
+                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]]); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -139,7 +136,6 @@ function secondCellListener(cell) {
                 game_over();
                 move_piece();
                 redTurn = !redTurn;
-                currentDirection = currentDirection * redDirection;
                 
                 cellListener = firstCellListener;
             }
@@ -262,11 +258,20 @@ function get_candidate_moves(piece, card) {
     
 }
 
-function get_candidate_moves_ver2(piece, card, direction) {
+function get_candidate_moves_ver2(piece, card) {
     
     var x = 0;
     var y = 0;
     var moveList = [];
+    var direction;
+
+    if (redTurn) {
+	    direction = 1;
+    }
+    else
+    {
+	    direction = -1;
+    }	    
     
     //generate moves here()
     //starts with one because first item in cards list is name of card
