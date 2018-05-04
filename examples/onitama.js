@@ -108,7 +108,7 @@ function firstCellListener(cell) {
                 highlight_cell(true, firstCell);
                 console.log("Start", firstCell);
                                                                         //placeholder
-                candidateMoves = get_candidate_moves_ver2(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]]); 
+                candidateMoves = get_candidate_moves(firstCell, ["dragon",    [-1, -1], [-1, 1], [1, -2], [1, 2]]); 
                 highlight_candidate_cells(true);
     
                 cellListener = secondCellListener;
@@ -238,39 +238,14 @@ function get_candidate_moves(piece, card) {
     var x = 0;
     var y = 0;
     var moveList = [];
-    var i = 0;
-    var num_of_moves = randomize_num_of_moves(2,4);
-    
-    //randomly choose 2 to 4 empty cells
-    while (i < num_of_moves) {
-        
-        move = randomize_move();
-        //if move in moveList, select another move...
-        if (moveList.indexOf(move) <= -1 && !friendly_piece(piece, b.cell(move)))
-        {
-            moveList.push(move);
-            i++; 
-        } 
-    }
-
-    console.log(moveList.toString());
-    return moveList;
-    
-}
-
-function get_candidate_moves_ver2(piece, card) {
-    
-    var x = 0;
-    var y = 0;
-    var moveList = [];
     var direction;
 
     if (redTurn) {
-	    direction = 1;
+	    direction = -1;
     }
     else
     {
-	    direction = -1;
+	    direction = 1;
     }	    
     
     //generate moves here()
